@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 
+const generatePage = require('./src/page-template');
+
 const promptUser = () => {
     return inquirer.prompt([
         {
@@ -28,11 +30,7 @@ const promptUser = () => {
                 }
             }
         },
-        {
-            type: 'input',
-            name: 'about',
-            message: 'Provide some information about yourself:'
-        },
+
         {
             type: 'confirm',
             name: 'confirmAbout',
@@ -49,9 +47,8 @@ const promptUser = () => {
     ]);
 };
 
-
 const promptProject = portfolioData => {
-    
+
     // If there's no 'projects' array property, create one
     if (!portfolioData.projects) {
         portfolioData.projects = [];
@@ -136,5 +133,14 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
+        // const pageHTML = generatePage(portfolioData);
+        const pageHTML = generatePage(mockData);
+        
+
+        // fs.writeFile('./index.html', pageHTML, err => {
+        //   if (err) throw new Error(err);
+
+        //   console.log('Page created! Check out index.html in this directory to see it!');
+        // });
+
     });
